@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-
-@author: camillejandot
-"""
 import numpy as np
 
 

@@ -1,0 +1,5 @@
+Keterangan nomor id data:
+1 = cewek 1
+2 = cewek 2
+3 = cowok 1
+4 = cowok 2

@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 22 11:12:29 2017
-
-@author: juliette
-"""
-
 #######################################################################
 # jade.py -- Blind source separation of real signals
 #

@@ -1,18 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Mar 21 12:54:22 2017
-
-@author: camillejandot
-"""
 from scipy.io import wavfile
 from scipy.misc import imread
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from scipy.misc import imresize
-from HistogramOrientedGradient import HistogramOrientedGradient
-from equalization import equalize_item
+import os
+from .HistogramOrientedGradient import HistogramOrientedGradient
+from .equalization import equalize_item
 
 
 class ECG_data:
@@ -38,19 +32,20 @@ class Audio:
     Not tested, probably buggy
     """
 
-    def __init__(self, nb_tracks):
+    def __init__(self, nb_tracks, param):
 
-        audio_gl_path = '../data/'
+        audio_gl_path = os.path.abspath(__file__ + "/../../../")
         if nb_tracks == 2:
-            tracks = ['1_instrumen_cewek1.wav', '1_vokal_cewek1.wav']
+            tracks = [str(param)+'_instrumen.wav', str(param)+'_vokal.wav']
         if nb_tracks == 4:
-            tracks = ['1_instrumen_cewek1.wav', '1_vokal_cewek1.wav', '2_vokal_cewek2.wav',
-                      '2_instrumen_cewek2.wav']
+            tracks = [str(param)+'_instrumen.wav', str(param)+'_vokal.wav', str(param+1)+'_vokal.wav',
+                      str(param+1)+'_instrumen.wav']
 
+        audio_gl_path = audio_gl_path + '\\data\\'
         self.paths = [audio_gl_path + i for i in tracks]
         self.rates = []
 
-    def load_tracks(self, verbose=False):
+    def load_tracks(self, param, verbose=False):
         tracks = []
         lengths = []
         for path in self.paths:
@@ -62,13 +57,21 @@ class Audio:
         min_size = min_size / 10
         sub_tracks = []
 
-        # i=0
+        i=0
         for track in tracks:
-            sub_tracks.append(track[:min_size])
+            sub_tracks.append(track[:int(min_size)])
 
-            # file_name = '../' + 'source' + str(i) + '.wav'
-            # wavfile.write(file_name, rate=44100, data=track[:min_size])
-            # i=i+1
+            #for write wav file
+            if i == 0:
+                str_name = 'vokal'
+            else:
+                str_name = 'instrumen'
+            path_results = os.path.abspath(__file__ + "/../../../")
+            path_results = path_results + '\\results\\sources_audio\\'
+            file_name = path_results + str(param) + '_' + str_name + '_' +'source' + '.wav'
+            wavfile.write(file_name, rate=44100, data=track[:int(min_size)])
+            i=i+1
+
         self.tracks = sub_tracks
 
         if verbose:
@@ -108,8 +111,10 @@ class Audio:
             plt.suptitle("Mixtures")
             plt.show()
             if write:
-                audio_results_path = '../results/audio-mix/'
-                file_name = audio_results_path + str(dimension) + '_' + 'mixtures_' + str(plot_num) + '.wav'
+                path_mix = os.path.abspath(__file__ + "/../../../")
+                path_mix = path_mix + '\\results\\mix_audio\\'
+                # audio_results_path = '../results/audio-mix/'
+                file_name = path_mix + '1' + '_' + 'mixtures' + '.wav'
                 wavfile.write(file_name, rate=44100, data=mixture[plot_num, :])
 
         return mixture, mixing_matrix

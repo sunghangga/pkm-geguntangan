@@ -1,14 +1,7 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Apr  1 11:35:05 2017
-
-@author: salma
-"""
-
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.io import wavfile
+import os
 from data_utils import Audio
 from projection_utils import proj, orth_projection
 from fastICA import fastICA, fastISA, amari_index, whiten, center
@@ -22,7 +15,9 @@ n_mixtures = 2
 
 method = 'ica'
 algorithm = 'fastICA'
-audio_results_path = '../results/separates-audio/'
+audio_results_path = os.path.abspath(__file__ + "/../../../")
+audio_results_path = audio_results_path + '\\results\\separates_audio\\'
+# audio_results_path = '../results/separates-audio/'
 
 # mixing_matrix = np.array([[1. / 12, 1. / 8, 2. / 6, 1. / 6],
 #                           [1 / 6, 1 / 6, 1 / 6, 1 / 6],

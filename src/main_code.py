@@ -43,8 +43,8 @@ print(temp_output_2)
 MSE = mean_squared_error(temp_output_1, temp_output_2)
 print(MSE)
 
-#masih salah
-print(-10 * math.log10(MSE))
+SIR = -10 * math.log10(MSE)
+print(SIR)
 
 #write separates wav audio
 wavfile.write("../results/separates_audio/1_vokal_separate" + ".wav", fs_2, temp_output_1.astype(np.int16))

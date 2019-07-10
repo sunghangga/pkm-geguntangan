@@ -8,7 +8,7 @@ from fastICA import fastICA, fastISA, amari_index, whiten, center
 from jade import jadeR
 
 n_sources = 2
-n_mixtures = 2
+n_mixtures = 1
 
 # for fastISA
 # sub_dim = 2

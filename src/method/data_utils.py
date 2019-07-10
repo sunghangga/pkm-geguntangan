@@ -34,13 +34,16 @@ class Audio:
 
     def __init__(self, nb_tracks, param):
 
-        audio_gl_path = os.path.abspath(__file__ + "/../../../")
-        if nb_tracks == 2:
+        
+        if nb_tracks == 1:
+            tracks = [str(param)]
+        elif nb_tracks == 2:
             tracks = [str(param)+'_instrumen.wav', str(param)+'_vokal.wav']
-        if nb_tracks == 4:
+        elif nb_tracks == 4:
             tracks = [str(param)+'_instrumen.wav', str(param)+'_vokal.wav', str(param+1)+'_vokal.wav',
                       str(param+1)+'_instrumen.wav']
 
+        audio_gl_path = os.path.abspath(__file__ + "/../../../")
         audio_gl_path = audio_gl_path + '\\data\\'
         self.paths = [audio_gl_path + i for i in tracks]
         self.rates = []
@@ -57,20 +60,20 @@ class Audio:
         min_size = min_size / 10
         sub_tracks = []
 
-        i=0
         for track in tracks:
             sub_tracks.append(track[:int(min_size)])
 
             #for write wav file
-            if i == 0:
+            if "vokal" in param.lower():
                 str_name = 'vokal'
             else:
                 str_name = 'instrumen'
-            path_results = os.path.abspath(__file__ + "/../../../")
-            path_results = path_results + '\\results\\sources_audio\\'
-            file_name = path_results + str(param) + '_' + str_name + '_' +'source' + '.wav'
-            wavfile.write(file_name, rate=44100, data=track[:int(min_size)])
-            i=i+1
+            
+            path_results = os.path.abspath(__file__ + "/../../../results/sources_audio/" + "\\" + str_name + "\\" + param)
+            # path_results = path_results + '\\results\\sources_audio\\'
+            # file_name = path_results + param
+            # print(path_results)
+            wavfile.write(path_results, rate=44100, data=track[:int(min_size)])
 
         self.tracks = sub_tracks
 
@@ -114,7 +117,7 @@ class Audio:
                 path_mix = os.path.abspath(__file__ + "/../../../")
                 path_mix = path_mix + '\\results\\mix_audio\\'
                 # audio_results_path = '../results/audio-mix/'
-                file_name = path_mix + '1' + '_' + 'mixtures' + '.wav'
+                file_name = path_mix + '2' + '_' + 'mixtures' + '.wav'
                 wavfile.write(file_name, rate=44100, data=mixture[plot_num, :])
 
         return mixture, mixing_matrix

@@ -2,4 +2,12 @@ Keterangan nomor id data:
 1 = cewek 1
 2 = cewek 2
 3 = cowok 1
-4 = cowok 2
+4 = cowok 3
+
+Penamaan:
+1_2_3_[jenis data]
+1 = cewek1, cewek2, dst
+2 = lagu ke-1,2,3, dst
+3 = pengulangan ke-1,2,3, dst
+
+sampai cloning moodle

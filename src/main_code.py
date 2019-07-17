@@ -127,13 +127,13 @@ for filenameVokal in os.listdir(directoryVokal):
 			fs_2, voice_2 = wavfile.read("../results/sources_audio/instrumen/"+filenameInstrumen)
 			m, = voice_1.shape
 			voice_2 = voice_2[:m]
-
 			S = np.c_[voice_1, voice_2]
 
 			# A = np.array([[1, 1], [0.5, 2]])
 			A = np.array([[0.3816, 0.8678], [0.8534, -0.5853]])  # Mixing matrix
 			X = np.dot(S, A.T)  # Generate observations
 
+			# print(X.dtype)
 			if method == "Ica":
 				S_ = ica(X)
 				MSE_ica = mse(S_,voice_1,voice_2,method)
